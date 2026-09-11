@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS `automl_model` (
+  `id` varchar(36) NOT NULL COMMENT '主键',
+  `create_by` varchar(50) DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_by` varchar(50) DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `model_name` varchar(100) NOT NULL COMMENT '模型名称',
+  `model_code` varchar(100) NOT NULL COMMENT '模型编码',
+  `version` varchar(50) NOT NULL COMMENT '版本',
+  `task_type` varchar(50) DEFAULT 'detection' COMMENT '任务类型',
+  `framework` varchar(50) DEFAULT 'yolo' COMMENT '框架',
+  `status` varchar(20) DEFAULT 'active' COMMENT '状态',
+  `description` varchar(500) DEFAULT NULL COMMENT '说明',
+  `weight_bucket` varchar(100) DEFAULT NULL COMMENT 'MinIO bucket',
+  `weight_object_key` varchar(512) DEFAULT NULL COMMENT 'MinIO对象Key',
+  `weight_file_name` varchar(255) DEFAULT NULL COMMENT '原始权重文件名',
+  `weight_file_size` bigint DEFAULT NULL COMMENT '权重文件大小',
+  `weight_content_type` varchar(100) DEFAULT NULL COMMENT '权重文件类型',
+  `weight_checksum` varchar(64) DEFAULT NULL COMMENT '权重SHA-256',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_automl_model_code_version` (`model_code`,`version`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='模型管理';
